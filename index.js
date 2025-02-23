@@ -13,7 +13,7 @@ app.use(express.json());
 // 🔥 Allow only your frontend in CORS
 app.use(
   cors({
-    origin: "https://ever-write-frontend.vercel.app", // ✅ Allow only your frontend
+    origin: "*", // ✅ Allow only your frontend
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],

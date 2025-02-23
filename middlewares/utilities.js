@@ -13,7 +13,14 @@ function authenticateToken(req, res, next) {
       return res.status(403).json({ error: "Unauthorized: Invalid token" });
     }
 
-    req.user = decoded; // ✅ Ensure `req.user` contains `{ id: userId }`
+    // ✅ Ensure decoded token has `id` property
+    if (!decoded.id) {
+      return res
+        .status(403)
+        .json({ error: "Unauthorized: Token missing user ID" });
+    }
+
+    req.user = decoded; // ✅ Correctly set `req.user.id`
     next();
   });
 }

@@ -1,8 +1,8 @@
-import { Notes } from "../models/notes.model.js";
+import Notes from "../models/notes.model.js";
 
 export const addNote = async (req, res) => {
   const { title, tags, content } = req.body;
-  const userId = req.user.id; // ✅ Fix: Access userId correctly
+  const userId = req.user?.id || req.user._id; // ✅ Fix
 
   if (!title || !content) {
     return res.status(400).json({ message: "All fields are required" });
@@ -120,7 +120,7 @@ export const updateNote = async (req, res) => {
 
 export const SearchNote = async (req, res) => {
   try {
-    const userId = req.user.id;
+    const userId = req.user?.id || req.user._id;
     const { query } = req.query;
 
     if (!query) {
@@ -149,5 +149,6 @@ export const SearchNote = async (req, res) => {
     return res.status(500).json({ message: "Server error", error: error.message });
   }
 };
+
 
 
