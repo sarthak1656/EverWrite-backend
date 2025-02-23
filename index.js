@@ -5,21 +5,22 @@ import connectDb from "./db/index.js";
 import userRouter from "./routes/user.route.js"; 
 import notesRouter from "./routes/notes.route.js"; 
 
+dotenv.config({ path: "./.env" });
+
 const app = express();
 app.use(express.json());
 
+// 🔥 Allow only your frontend in CORS
 app.use(
   cors({
-    origin: "*",
+    origin: "https://ever-write-frontend.vercel.app", // ✅ Add your frontend URL
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 
-dotenv.config({
-  path: "./.env",
-});
-
+// Start Server
 const startServer = async () => {
   try {
     await connectDb();
@@ -28,12 +29,12 @@ const startServer = async () => {
     });
   } catch (error) {
     console.error("MongoDB connection failed!", error);
-    process.exit(1); // Exit the process if DB connection fails
+    process.exit(1);
   }
 };
 
-startServer();
+// Routes
+app.use("/api/users", userRouter);
+app.use("/api/notes", notesRouter);
 
-//separated route files
-app.use("/api/users", userRouter); // Prefix for user routes
-app.use("/api/notes", notesRouter); // Prefix for notes routes
+startServer();
