@@ -10,15 +10,15 @@ dotenv.config({ path: "./.env" });
 const app = express();
 app.use(express.json());
 
-// 🔥 Allow only your frontend in CORS
 app.use(
   cors({
-    origin: "https://ever-write-frontend.vercel.app/", // ✅ Add your frontend URL
-    credentials: true,
+    origin: "https://ever-write-frontend.vercel.app", // ✅ No trailing slash
+    credentials: true, // ✅ Required for cookies/tokens
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
+
 
 // Start Server
 const startServer = async () => {
