@@ -11,11 +11,13 @@ dotenv.config({
     path:"./.env"
   })
   const app = express();
-  app.use(cors({
-    origin: "https://ever-write-frontend.vercel.app",
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true
-  }));
+app.use(cors({
+  origin: "https://ever-write-frontend.vercel.app", // ✅ Correct
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true,
+  allowedHeaders: ["Content-Type", "Authorization"], // Add this line
+}));
+
 
 
 
