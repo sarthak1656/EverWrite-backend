@@ -12,7 +12,7 @@ dotenv.config({
   })
   const app = express();
   app.use(cors({
-    origin: "https://ever-write-frontend.vercel.app/login",
+    origin: "https://ever-write-frontend.vercel.app",
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true
   }));
